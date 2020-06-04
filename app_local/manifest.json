@@ -1,0 +1,50 @@
+{
+  "name": "Nextcloud sharefolder",
+  "author": {
+    "name": "Rinat",
+    "email": "rishm069@gmail.com",
+    "url": ""
+  },
+  "defaultLocale": "en",
+  "private": true,
+  
+    "location": {
+	      "support": {
+		          "ticket_sidebar": {
+				        "url": "assets/ticket_bar.html",
+					      "size": {
+						              "height": "260px"
+							            }
+								        }
+									  }
+    },
+
+    
+    "parameters": [
+      {
+        "name": "username",
+        "type": "text",
+        "secure": true,
+        "required": false
+      },
+      {
+        "name": "password",
+        "type": "text",
+        "secure": true,
+        "required": false
+      },
+      {
+        "name": "url",
+        "type": "url",
+        "secure": true,
+        "required": false
+      },
+      {
+        "name": "TicketApp_URL",
+        "type": "text",
+        "default": "http://localhost:8080/sidebar"
+      }
+    ],
+    "version": "1.0",
+    "frameworkVersion": "2.0"
+  }
