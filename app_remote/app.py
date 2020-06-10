@@ -31,7 +31,7 @@ def create():
                 auth = HTTPBasicAuth(username, password)
 
                 mkcol_url = 'https://' + conf_url + '/remote.php/dav/files/' + username + '/' + folder_name
-                req = requests.request('MKCOL', url=mkcol_url, auth=auth, verify=False)
+                req = requests.request('MKCOL', url=mkcol_url, auth=auth)
                 stat_code = req.status_code
 
                 if stat_code == 201:
@@ -44,7 +44,7 @@ def create():
                                 }
                         headers = {'OCS-APIRequest': 'true'}
                         try:
-                                r = requests.request('POST', url='https://' + conf_url + '/ocs/v2.php/apps/files_sharing/api/v1/shares', data=payload, auth=auth, verify=False, headers=headers)
+                                r = requests.request('POST', url='https://' + conf_url + '/ocs/v2.php/apps/files_sharing/api/v1/shares', data=payload, auth=auth, headers=headers)
             
                                 xml_link = re.findall('<url>(.*?)</url>', r.text)
                                 share_link = ''.join(xml_link)
