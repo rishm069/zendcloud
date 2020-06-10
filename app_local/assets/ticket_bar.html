@@ -13,28 +13,21 @@
   <script>
 
     var client = ZAFClient.init();
-    // client.invoke('resize', { width: '100%', height: '200px' });
-
-    // Get URL to redirect to and pass along the 'origin' and 'app_guid' settings, which are necessary to communicate to ZAF
     var redirectURL;
     client.metadata().then( (metadata) => {
         redirectURL = `${metadata.settings.TicketApp_URL}?origin=${client._origin}&app_guid=${client._appGuid}`;
     });
 
-   
-    // need to do proper error handling
-   
     function redirectToRemote() {
         window.location.assign(redirectURL);    
     }
-    
     
     function doStuff() {
       $("#messageOutput").text("Loading the application...");
       setTimeout(redirectToRemote, 2000);
     }
 
-    client.on('app.registered', doStuff() );
+    client.on('app.registered', doStuff());
     
   </script>
 </body>
