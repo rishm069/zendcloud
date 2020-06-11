@@ -22,27 +22,27 @@
     
     "parameters": [
       {
-        "name": "username",
+        "name": "Nextcloud_Username",
         "type": "text",
-        "secure": true,
-        "required": false
+        "default": "User",
+        "required": true
       },
       {
-        "name": "password",
-        "type": "text",
-        "secure": true,
-        "required": false
+        "name": "Nextcloud_Password",
+        "type": "password",
+        "required": true
       },
       {
-        "name": "url",
-        "type": "url",
-        "secure": true,
-        "required": false
+        "name": "NextcloudServer_URL",
+        "type": "text",
+        "default": "example.com",
+        "required": true
       },
       {
         "name": "TicketApp_URL",
         "type": "text",
-        "default": "http://localhost:8080/sidebar"
+        "default": "http://localhost:8080/sidebar",
+        "required": true
       }
     ],
     "version": "1.0",
