@@ -7,16 +7,16 @@
   <script>
   var client = ZAFClient.init();
   let zendeskAcsWSurl;
-  // get the metadata settings
+
   client.metadata().then(function (metadata) {
-  // assigning the web service base url from the configuration files
-    username=metadata.settings.username;
-    password=metadata.settings.password;
-    url=metadata.settings.url;
+
+    username=metadata.settings.Nextcloud_Username;
+    password=metadata.settings.Nextcloud_Password;
+    url=metadata.settings.NextcloudServer_URL;
     qs = '{{qs}}';
-    document.cookie = "username="+username;
-    document.cookie = "password="+password;
-    document.cookie = "url="+url;
+    document.cookie = "username="+Nextcloud_Username;
+    document.cookie = "password="+Nextcloud_Password;
+    document.cookie = "url="+NextcloudServer_URL;
   });
   
   % if defined('success_msg'):
