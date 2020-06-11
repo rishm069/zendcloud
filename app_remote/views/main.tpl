@@ -7,16 +7,13 @@
   <script>
   var client = ZAFClient.init();
   let zendeskAcsWSurl;
-
   client.metadata().then(function (metadata) {
-
     username=metadata.settings.Nextcloud_Username;
     password=metadata.settings.Nextcloud_Password;
     url=metadata.settings.NextcloudServer_URL;
-    qs = '{{qs}}';
-    document.cookie = "username="+Nextcloud_Username;
-    document.cookie = "password="+Nextcloud_Password;
-    document.cookie = "url="+NextcloudServer_URL;
+    document.cookie = "username="+username;
+    document.cookie = "password="+password;
+    document.cookie = "url="+url;
   });
   
   % if defined('success_msg'):
