@@ -68,4 +68,4 @@ def send_iframe_html():
         response.set_cookie('my_app_params', qs)
         return template('main', qs=qs)
 
-run(host='localhost', port=8080, debug=True)
+run(host='0.0.0.0', port=8080, debug=True)
