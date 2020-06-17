@@ -1,3 +1,4 @@
+import os
 import re
 import random
 import string
@@ -6,23 +7,28 @@ from requests.auth import HTTPBasicAuth
 from bottle import route, run, template, request, response, get, post
 
 def randomStringDigits(stringLength):
-    """Generate a random string of letters and digits """
+    # generate a random string of letters and digits for password and foldername
     lettersAndDigits = string.ascii_letters + string.digits
     return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
 
 @route('/create')
 def create():
-
+        # get Zendesk app information
         qs = request.get_cookie('my_app_params')
 
+        # retriving configuration data from Zendesk
         conf_username = request.get_cookie('username')
         conf_password = request.get_cookie('password')
         conf_url = request.get_cookie('url')
+        
+        # enforsing HTTPS to Nextcloud server (either HTTP/HTTPS are removed and set to HTTPS in requests)
         if conf_url.startswith('http'):
                 conf_url = conf_url.replace("http://","")
         if conf_url.startswith('https'):
                 conf_url = conf_url.replace("https://","")
+        
         try:
+                # creating foldername and password 
                 folder_name = randomStringDigits(35)
                 folder_password = randomStringDigits(15)
 
@@ -30,11 +36,13 @@ def create():
                 password = conf_password
                 auth = HTTPBasicAuth(username, password)
 
+                # folder creation
                 mkcol_url = 'https://' + conf_url + '/remote.php/dav/files/' + username + '/' + folder_name
-                req = requests.request('MKCOL', url=mkcol_url, auth=auth)
-                stat_code = req.status_code
+                mkcol_req = requests.request('MKCOL', url=mkcol_url, auth=auth)
+                stat_code = mkcol_req.status_code
 
                 if stat_code == 201:
+                        # setting share configuration
                         payload = {
                                 'shareType':'3',
                                 'path' : folder_name,
@@ -44,9 +52,11 @@ def create():
                                 }
                         headers = {'OCS-APIRequest': 'true'}
                         try:
-                                r = requests.request('POST', url='https://' + conf_url + '/ocs/v2.php/apps/files_sharing/api/v1/shares', data=payload, auth=auth, headers=headers)
+                                # share creation
+                                post_req = requests.request('POST', url='https://' + conf_url + '/ocs/v2.php/apps/files_sharing/api/v1/shares', data=payload, auth=auth, headers=headers)
             
-                                xml_link = re.findall('<url>(.*?)</url>', r.text)
+                                # share-link retrival 
+                                xml_link = re.findall('<url>(.*?)</url>', post_req.text)
                                 share_link = ''.join(xml_link)
             
                                 return template('main', qs=qs, success_msg=stat_code, folder_password=folder_password, share_link=share_link)
@@ -68,4 +78,5 @@ def send_iframe_html():
         response.set_cookie('my_app_params', qs)
         return template('main', qs=qs)
 
-run(host='0.0.0.0', port=8080, debug=True)
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
