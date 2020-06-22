@@ -12,4 +12,6 @@ Nextcloud 18.0.3
 
 To start using this app you need to set up a Nextcloud server and deploy the application (app_remote) as Python Bottle framework application (the other option is to deploy the app on Heroku or use Docker container: https://hub.docker.com/r/rishm/zendcloud)
 
-* Note: Nextcloud server must be secured via SSL (IP can not be specidied)
+# Notes
+
+* Nextcloud and remote app server must be secured via SSL (IP can not be specidied)
