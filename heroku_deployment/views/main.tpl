@@ -32,7 +32,7 @@ client.get('ticket.id').then(function(data) {
           "ticket": {
               "status": "open",
               "comment": {
-                  "body": "Share folder has been created. Link: " + share_link + " Paasword is: " + folder_password,
+                  "body": "Share folder has been created. Link: " + share_link + " Password is: " + folder_password,
                   "public": false
               }
           }
