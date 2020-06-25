@@ -77,6 +77,4 @@ def send_iframe_html():
         qs = request.query_string
         response.set_cookie('my_app_params', qs)
         return template('main', qs=qs)
-
-if os.environ.get('APP_LOCATION') == 'heroku':
-    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
